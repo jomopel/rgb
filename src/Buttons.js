@@ -5,14 +5,31 @@ export default class Buttons extends React.Component {
         super(props)
 
         this.state = {
+            count: 0,
+            input: 0,
+            submit: 0,
+            min: 0,
+            max: 255,
         }
+        this.handlePlus = this.handlePlus.bind(this)
+        this.handleMinus = this.handleMinus.bind(this)
 
-        this.onClick = this.onClick.bind(this)
+        
+    }
+    handlePlus() {
+        this.setState(state => ({
+            count: state.count + 1,
+        }))
+        this.props.onChange(this.props.value + 1)
     }
 
-    onClick() {
-        this.props.onClick()
+    handleMinus() {
+        this.setState(state => ({
+            count: state.count - 1,
+        }))
+        this.props.onChange(this.props.value - 1)
     }
+
 
     render() {
 
@@ -22,9 +39,9 @@ export default class Buttons extends React.Component {
                     this.props.colors.map(color => {
                         return (
                             <div>
-                                <button className='btn' onClick={this.onClick} >minus</button>
+                                <button className='btn' disabled={this.state.count === this.state.min} onClick={this.handleMinus}>minus</button>
                                 <div>{color.name} = {color.count}</div>
-                                <button className='btn' >plus</button>
+                                <button className='btn' disabled={this.state.count === this.state.max} onClick={this.handlePlus}>plus</button>
                             </div>
                         )
                     })

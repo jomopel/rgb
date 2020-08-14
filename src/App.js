@@ -2,6 +2,7 @@ import React from 'react';
 import Counter from './Counter'
 import './App.css';
 import ColorPicker from './ColorPicker'
+import Buttons from './Buttons'
 
 export default class App extends React.Component {
 
@@ -12,40 +13,47 @@ export default class App extends React.Component {
       count: 0,
       input: 0,
       submit: 0,
+      red: 0,
+      green: 0,
+      blue: 0,
+      
 
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
 
-  handleChange(event) {
+  handleChange(count, name) {
+    console.log(name);
+    if(name === "red") {
     this.setState({
-      input: event.target.value
+      red: count
     })
   }
-
-  handleSubmit(event) {
-    event.preventDefault()
+  if(name === "green") {
     this.setState({
-      count: parseInt(this.state.input, 10)
+      green: count
     })
-
   }
+  if(name === "blue") {
+    this.setState({
+      blue: count
+    })
+  }
+  }
+
+
 
   render() {
     return (
       <div className="App">
-        <h1>submit</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input type="number" value={this.state.input} onChange={this.handleChange} min={this.state.min} max={this.state.max} placeholder='enter start point' />
-          <button type='submit'>submit</button>
-        </form>
-        <div>submit: {this.state.count}</div>
-
         <h1>Counter</h1>
-        <Counter onChange={count => console.log(count)} />
-        <ColorPicker />
+        <Counter onChange={this.handleChange} name={"red"} value={this.state.red} />
+        <Counter onChange={this.handleChange} name={"green"} value={this.state.green} />
+        <Counter onChange={this.handleChange} name={"blue"} value={this.state.blue} />
+
+        
+        <ColorPicker red={this.state.red} green={this.state.green} blue={this.state.blue} />
       </div>
     );
   }

@@ -9,7 +9,7 @@ export default class Counter extends React.Component {
             input: 0,
             submit: 0,
             min: 0,
-            max: 100,
+            max: 255,
         }
 
         this.handlePlus = this.handlePlus.bind(this)
@@ -24,13 +24,18 @@ export default class Counter extends React.Component {
         this.setState(state => ({
             count: state.count + 1,
         }))
+        this.props.onChange(this.props.value + 10, this.props.name)
+        
     }
 
     handleMinus() {
         this.setState(state => ({
             count: state.count - 1,
         }))
+        this.props.onChange(this.props.value - 10)
     }
+
+
 
     handleChange(event) {
         this.setState({
@@ -52,7 +57,7 @@ export default class Counter extends React.Component {
             <div >
                 <div className='counter'>
                     <button className='btn' disabled={this.state.count === this.state.min} onClick={this.handleMinus}>minus</button>
-                    <div>red: {this.state.count}</div>
+                    <div>{this.props.name}: {this.props.value}</div>
 
                     <button className='btn' disabled={this.state.count === this.state.max} onClick={this.handlePlus}>plus</button>
                 </div>

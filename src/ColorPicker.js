@@ -15,6 +15,7 @@ export default class ColorPicker extends React.Component {
 
 
     render() {
+        console.log(this.props);
         return (
             <div className="colorPicker" style={{ backgroundColor: `rgb(${this.props.red},${this.props.green},${this.props.blue})` }}>
             </div>
